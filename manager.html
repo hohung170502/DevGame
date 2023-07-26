@@ -1,0 +1,406 @@
+<?php 
+    session_start();
+
+    if (!isset($_SESSION['Username'])) {
+        header('Location: ./');
+        exit();
+    }
+    $username = $_SESSION['Username'];
+
+    include './config.inc.php';
+    // Connect database
+    $db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+    // Check connection
+    if (!$db) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    
+    // check if role == 1
+    $sql = "SELECT * FROM `account` WHERE `username` = '$username' AND `role` = '1'";
+    $result = mysqli_query($db, $sql);
+    if (mysqli_num_rows($result) == 0) {
+        header('Location: ./');
+        exit();
+    }
+
+    // Get list game from database
+    $sql = "SELECT * FROM `games`";
+    $result = mysqli_query($db, $sql);
+    $games = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $games[] = $row;
+    }
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/base.css">
+    <link rel="stylesheet" href="./assets/css/main.css">
+    <link rel="stylesheet" href="./assets/fonts/fontawesome/css/all.css">
+    <link rel="icon" href="./assets/img/logo.svg" type="image/x-icon" />
+    <!-- Javascript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <title>DevGame Shop</title>
+
+    <link rel="stylesheet" href="./assets/css/manager.css">
+</head>
+
+<body>
+    <div id="wed-divine">
+
+        <!-- Header -->
+        <header>
+
+            <!-- Header Up -->
+            <div class="header">
+                <div class="grid padding">
+                    <div class="header-navbar">
+                        <ul class="navbar">
+                            <li class="navbar-item header-margin-down">
+                                <a href="" class="navbar-icon">
+                                    <i class="icon-navbar fa-solid fa-arrows-left-right"></i>
+                                </a>
+                                Chào mừng bạn đến với Shop!
+                            </li>
+                        </ul>
+            
+                        <ul class="navbar">
+                            <li class="navbar-item">
+                                <a href="" class="navbar-link hover">
+                                    <i class="icon-navbar fa-solid fa-book"></i>
+                                    Hướng dẫn mua hàng
+                                </a>
+                            </li>
+                            <li class="navbar-item">
+                                <a href="" class="navbar-link hover">
+                                    <i class="icon-navbar fa-solid fa-percent"></i>
+                                    Ưu đãi khách hàng
+                                </a>
+                            </li>
+                            <li class="navbar-item">
+                                <a href="#footer" class="navbar-link hover">
+                                    <i class="icon-navbar fa-solid fa-phone"></i>
+                                    Thông tin liên hệ
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Center -->
+            <div class="header-center">
+                <div class="grid">
+                    <!-- Header logos -->
+                    <div class="header-nav">
+                        <a class="header-logo" title="Trang chủ" href="">
+                            <img class="header-img" src="./assets/img/logo trang.png" alt="logo">
+                            <h4 class="header-text">DevGame Shop</h4>
+                        </a>
+                        <!-- Header search -->
+                        <div class="header-search">
+                            <form role="search">
+                                <div class="search">
+                                    <input type="text" class="search-text border" placeholder="Tìm kiếm sản phẩm">
+                                    <button class="search-button border" aria-label="search">
+                                        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                            <path d="M508.5 468.9L387.1 347.5c-2.3-2.3-5.3-3.5-8.5-3.5h-13.2c31.5-36.5 50.6-84 50.6-136C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c52 0 99.5-19.1 136-50.6v13.2c0 3.2 1.3 6.2 3.5 8.5l121.4 121.4c4.7 4.7 12.3 4.7 17 0l22.6-22.6c4.7-4.7 4.7-12.3 0-17zM208 368c-88.4 0-160-71.6-160-160S119.6 48 208 48s160 71.6 160 160-71.6 160-160 160z"></path>
+                                        </svg>
+                                    </button>
+                                    <div class="search-history">
+                                        <div class="history-list">
+                                            <a class="history-item hover" href="#">Nâng cấp AutoDesk</a>
+                                            <a class="history-item hover" href="#">Tài khoản GTA V giá rẻ</a>
+                                            <a class="history-item hover" href="#">Tài khoản Battlefield giá rẻ</a>
+                                            <a class="history-item hover" href="#">Tài khoản Netflix Premium</a>
+                                            <a class="history-item hover" href="#">Discord Nitro 3 tháng</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- Header login/register -->
+                        <div class="header-login-register">
+                            <div class="header-list">
+                                <button class="user-btn">
+                                    <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M256 288c79.5 0 144-64.5 144-144S335.5 0 256 0 112 64.5 112 144s64.5 144 144 144zm128 32h-55.1c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16H128C57.3 320 0 377.3 0 448v16c0 26.5 21.5 48 48 48h416c26.5 0 48-21.5 48-48v-16c0-70.7-57.3-128-128-128z"></path>
+                                    </svg>
+                                </button>
+                                <div class="login-register">
+                                    <a href="./logout.php" class="login hover">Đăng xuất</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Header down -->
+            <div class="header-down">
+                <div class="grid">
+                    <div class="down-lists">
+                        <i class="fa-solid fa-bars menu-icon"></i>
+                        <h4 class="fist-item">Danh mục sản phẩm:</h4>
+                        <a class="lists-item btn btn--left" href="#special">
+                            <i class="fa-solid fa-star"></i> Ưu đãi đặt biệt</a>
+                        <a class="lists-item btn btn--left" href="#ost">
+                            <i class="fa-brands fa-steam"></i> Game trên Steam</a>
+                        <a class="lists-item btn btn--left" href="#epic">
+                            <i class="fa-solid fa-gamepad"></i> Game on Epic</a>
+                        <a class="lists-item btn btn--left" href="#wallet">
+                            <i class="fa-solid fa-wallet"></i> Code Wallet</a>
+                        <a class="lists-item btn btn--left" href="#host">
+                            <i class="fa-brands fa-hotjar"></i> Sản phẩm nổi bật</a>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- Body -->
+        <div class="body">
+            <div class="modal-game modal-add-game">
+                <div class="modal-body">
+                    <div class="modal-left">
+                        <img src="./assets/img/STEAM 200 TWD.png" alt="">
+                    </div>
+                    <div class="modal-right">
+                        <div class="form-group">
+                            <label for="name">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nhập tên sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Giá sản phẩm</label>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Nhập giá sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="discount">Giảm giá</label>
+                            <input type="number" class="form-control" id="discount" name="discount" placeholder="Nhập giá sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Mô tả</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="type">Thể loại</label>
+                            <select class="form-control" id="type" name="type">
+                                <option value="0">Steam</option>
+                                <option value="1">Epic</option>
+                                <option value="2">Code Wallet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Trạng thái</label>
+                            <select class="form-control" id="status" name="status">
+                                <option value="1">Còn hàng</option>
+                                <option value="0">Hết hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">Ảnh sản phẩm</label>
+                            <input type="file" class="form-control-file" id="image" name="image">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn-add-game">Thêm sản phẩm</button>
+                            <button class="btn-cancel-modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-game modal-edit-game">
+                <div class="modal-body">
+                    <div class="modal-left">
+                        <img src="./assets/img/STEAM 200 TWD.png" alt="">
+                    </div>
+                    <div class="modal-right">
+                        <input type="hidden" id="id-edit" value="">
+                        <div class="form-group">
+                            <label for="name-edit">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="name-edit" name="name-edit" placeholder="Nhập tên sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="price-edit">Giá sản phẩm</label>
+                            <input type="number" class="form-control" id="price-edit" name="price-edit" placeholder="Nhập giá sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="discount-edit">Giảm giá</label>
+                            <input type="number" class="form-control" id="discount-edit" name="discount-edit" placeholder="Nhập giá sản phẩm">
+                        </div>
+                        <div class="form-group">
+                            <label for="description-edit">Mô tả</label>
+                            <textarea class="form-control" id="description-edit" name="description-edit" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="type-edit">Thể loại</label>
+                            <select class="form-control" id="type-edit" name="type-edit">
+                                <option value="0">Steam</option>
+                                <option value="1">Epic</option>
+                                <option value="2">Code Wallet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="status-edit">Trạng thái</label>
+                            <select class="form-control" id="status-edit" name="status-edit">
+                                <option value="1">Còn hàng</option>
+                                <option value="0">Hết hàng</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="image-edit">Ảnh sản phẩm</label>
+                            <input type="file" class="form-control-file" id="image-edit" name="image-edit">
+                        </div>
+                        <div class="btn-group">
+                            <button class="btn-update-game">Cập nhật</button>
+                            <button class="btn-cancel-modal">Hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid">
+                <!-- Button Add Game -->
+                <div class="add-game">
+                    <button class="btn-open-modal-add-game">Thêm sản phẩm</button>
+                </div>
+                <!-- List Games -->
+                <div class="game-list">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Tên sản phẩm</td>
+                                <td>Giá</td>
+                                <td>Trạng thái</td>
+                                <td>Thao tác</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (count($games) == 0): ?>
+                                <tr>
+                                    <td>Không tìm thấy sản phẩm</td>
+                                </tr>
+                            <?php else:
+                                        foreach ($games as $game): ?>
+                                    <tr>
+                                        <td><?= $game['name'] ?></td>
+                                        <td><?= $game['discount'] == 0 ? number_format($game['price']) : "<label>- ". ceil(($game['price'] - $game['discount']) * 100 / $game['price']) ."%</label>" . number_format($game['discount']) ?></td>
+                                        <td><?= $game['status'] == 0 ? 'Hết hàng' : 'Còn hàng' ?></td>
+                                        <td>
+                                            <button class="edit" data-id="<?= $game['id'] ?>">Sửa</button>
+                                            <button class="delete" data-id="<?= $game['id'] ?>">Xóa</button>
+                                        </td>
+                                    </tr>
+                            <?php endforeach;
+                                endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <!-- social networks -->
+            <div class="social-lists">
+                <div class="social-ft">
+                    <a href="#" class="social-member social-face">
+                        <img class="social-img" src="./assets/img/face.svg" alt="Facebook">
+                    </a>
+                    <a href="#" class="social-member">
+                        <img class="social-img" src="./assets/img/youtube.svg" alt="Facebook">
+                    </a>
+                    <a href="#" class="social-member">
+                        <img class="social-img" src="./assets/img/ins.svg" alt="Facebook">
+                    </a>
+                </div>
+            </div>
+
+            <div class="grid">
+
+                <div class="line"></div>
+
+                <!-- Information -->
+                <div class="infor-lists">
+                    <div class="infor-member">
+                        <div class="infor-txt">
+                            <div class="infor-tittle">
+                                <div class="infor-header">Giới thiệu</div>
+                                <div class="infor-body">
+                                    <span>Phạm Minh Nhựt</span>
+                                    <span>Hồ Ngọc Hùng</span>
+                                    <span>Huỳnh Phước Trí</span>
+                                    <span>Nguyễn Tuấn Kiệt</span>
+                                </div>
+                            </div>
+                            <div class="infor-tittle">
+                                <div class="infor-header">MSSV</div>
+                                <div class="infor-body">
+                                    <span>2000004365</span>
+                                    <span>200000****</span>
+                                    <span>200000****</span>
+                                    <span>200000****</span>
+                                </div>
+                            </div>
+                            <div class="infor-tittle">
+                                <div class="infor-header">Liên hệ</div>
+                                <div class="infor-body">
+                                    <span>Hotline:
+                                        <span class="red">1900 2525</span>
+                                    </span>
+                                    <span>(Các ngày trong tuần từ 8h đến 24h)</span>
+                                    <span>Email hỗ trợ: tktw@gmail.com</span>
+                                    <span>Địa chỉ giao dịch: Phòng M106</span>
+                                    <span>Trường đại học NTTU</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="infor-img">
+                            <a href="#">
+                                <img class="infor-logo" src="./assets/img/logo-xanh.png" alt="">
+                            </a>
+                            <div class="logo-txt">DevGame Shop</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+
+        <!-- Babk to top -->
+        <div id="backtop">
+            <i class="fa-solid fa-chevron-up icon-back"></i>
+        </div>
+
+        
+
+    </div>
+
+    <!-- Javascript -->
+    <script src="./assets/js/slider.js"></script>
+    <script src="./assets/js/slider1.js"></script>
+    <script src="./assets/js/more-btn.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="./assets/js/backtop.js"></script>
+    <script src="./assets/js/modal.js"></script>
+    <script src="./assets/js/switch.js"></script>
+    <script src="./assets/js/signup.js"></script>
+    <script src="./assets/js/manager.js"></script>
+</body>
+</html>

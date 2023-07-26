@@ -1,0 +1,219 @@
+.add-game {
+    width: 100%;
+}
+
+.add-game > button {
+    padding: 7px 20px;
+    background-color: #2579f2;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.add-game > button:hover {
+    background-color: #0a59cc;
+}
+
+.game-list {
+    width: 100%;
+    margin: 20px 0;
+    font-size: 16px;
+    
+}
+
+.game-list > table {
+    width: 100%;
+    background-color: #fff;
+}
+
+.game-list > table,
+.game-list > table th,
+.game-list > table td {
+    /* border: 1px solid #eee; */
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+.game-list > table > thead > tr > td {
+    padding: 10px;
+    background-color: #999;
+    color: #fff;
+}
+
+.game-list > table > tbody > tr > td {
+    padding: 10px;
+}
+
+.game-list > table > tbody > tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+.game-list > table > tbody > tr > td:nth-child(2)::after {
+    content: ' vnđ';
+}
+
+.game-list > table > tbody > tr > td:nth-child(2) > label {
+    padding: 5px 7px;
+    background-color: #dc3545;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-right: 5px;
+}
+
+.game-list > table > tbody > tr > td > button {
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.game-list > table > tbody > tr > td > button.edit {
+    background-color: #2579f2;
+}
+
+.game-list > table > tbody > tr > td > button.delete {
+    background-color: #f25252;
+}
+
+.game-list > table > tbody > tr > td > button.edit:hover {
+    background-color: #0a59cc;
+}
+
+.game-list > table > tbody > tr > td > button.delete:hover {
+    background-color: #d60000;
+}
+
+.game-list > table > tbody > tr > td > a {
+    color: #2579f2;
+    text-decoration: none;
+}
+
+.game-list > table > tbody > tr > td > a:hover {
+    text-decoration: underline;
+}
+
+.row {
+    width: 100%;
+    height: 100%;
+    position: inherit;
+    
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.row > .modal-body {
+    display: flex;
+}
+
+.row .modal-left {
+    width: 40%;
+}
+
+.row .modal-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px 0 0 5px;
+}
+
+.modal-right {
+    width: 100%;
+    padding: 20px;
+    height: 100%;
+    position: inherit;
+    
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    z-index: 1;
+    display: flex;
+    align-items: center;
+}
+
+.row .form-group {
+    display: flex;
+    flex-flow: column;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.row .form-group > label {
+    font-size: 16px;
+    color: var(--text-color);
+    
+}
+
+.row .form-group > input,
+.row .form-group > select {
+    width: 90%;
+    padding: 7px 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: var(--text-color);
+    background-color: #fff;
+    outline: 0;
+}
+
+.row .form-group > textarea {
+    width: 100%;
+    max-width: 90%;
+    min-width: 90%;
+    min-height: 30px;
+    padding: 7px 10px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #000;
+    outline: 0;
+}
+
+.row .form-group > input[type="number"]::-webkit-inner-spin-button,
+.row .form-group > input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.row .btn-group {
+    margin-top: 15px;
+}
+
+.row .btn-group button {
+    padding: 7px 15px;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-right: 10px;
+}
+
+.row .btn-group button.btn-add-game,
+.row .btn-group button.btn-update-game {
+    background-color: #2579f2;
+}
+
+.row .btn-group button.btn-cancel-modal {
+    background-color: #f25252;
+}
+
+.row .btn-group button.btn-add-game:hover,
+.row .btn-group button.btn-update-game:hover {
+    background-color: #0a59cc;
+}
+
+.row .btn-group button.btn-cancel-modal:hover {
+    background-color: #d60000;
+}
+
+.game-list {
+    font-size: 30px;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 8px 40px;
+}
+
+
