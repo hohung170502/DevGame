@@ -599,19 +599,21 @@
                             <div class="infor-tittle">
                                 <div class="infor-header">Giới thiệu</div>
                                 <div class="infor-body">
-                                    <span>Phạm Minh Nhựt</span>
+                                    <span>Nguyễn Văn Toàn</span>
                                     <span>Hồ Ngọc Hùng</span>
-                                    <span>Huỳnh Phước Trí</span>
+                                    <span>Võ Thành Công</span>
                                     <span>Nguyễn Tuấn Kiệt</span>
+                                    <span>Trần Thanh Bình</span>
                                 </div>
                             </div>
                             <div class="infor-tittle">
                                 <div class="infor-header">MSSV</div>
                                 <div class="infor-body">
-                                    <span>2000004365</span>
+                                    <span>2000002725</span>
                                     <span>200000****</span>
                                     <span>200000****</span>
                                     <span>200000****</span>
+                                    <span<200000****</span>
                                 </div>
                             </div>
                             <div class="infor-tittle">
